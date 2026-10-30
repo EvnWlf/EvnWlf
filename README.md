@@ -23,7 +23,7 @@
 
 Desarrollador y estudiante enfocado en la creación de software funcional, soluciones a medida y herramientas de alta precisión.
 
-- 💻 **Desarrollo:** C++, TypeScript, JavaScript, Python, Java, Next.js, React, Tailwind CSS.
+- 💻 **Desarrollo:** C++ · *Aprendiendo:* Java, Python, TypeScript, JavaScript.
 - 🏢 **Host:** Lion Store — Soluciones a medida & Software funcional.
 - 🛠️ **Entorno:** Windows 11, WSL, iOS · Visual Studio & Antigravity.
 - 🌲 **Proyectos en [Oak Studio](https://evnwlf.dev/oak):**
