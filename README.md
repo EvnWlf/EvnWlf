@@ -1,7 +1,5 @@
 <div align="center">
-  <a href="https://evnwlf.dev" target="_blank" rel="noopener noreferrer">
-    <img src="./terminal.svg" alt="Evan (evnwlf) Neofetch Terminal" width="100%" />
-  </a>
+  <img src="./terminal.svg" alt="Evan (evnwlf) Neofetch Terminal" width="100%" />
 </div>
 
 <p align="center">
@@ -36,5 +34,5 @@ Desarrollador y estudiante enfocado en la creación de software funcional, soluc
 ---
 
 <div align="center">
-  <sub>Diseñado con la estética editorial y de terminal de <a href="https://evnwlf.dev"><b>evnwlf.dev</b></a></sub>
+  <sub>Diseñado con la estética editorial y de terminal de <b>evnwlf.dev</b></sub>
 </div>
