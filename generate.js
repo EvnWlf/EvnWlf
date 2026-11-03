@@ -71,6 +71,30 @@ function generateSVG() {
   const width = 960;
   const height = 550;
 
+  // Paleta de evnwlf.dev en Modo Claro (Editorial Beige & Ink)
+  const colors = {
+    bgStart: "#FBF7EF",      // Hueso cálido editorial
+    bgEnd: "#F4EFE6",        // Lino / arena suave
+    border: "#DCD4C4",       // Borde tenue refinado
+    titlebarBg: "rgba(23, 22, 20, 0.035)",
+    titlebarBorder: "#E3DCCF",
+    tabActiveBg: "#E8E0D0",
+    tabActiveBorder: "#D4CBB8",
+    tabActiveText: "#171614",
+    tabInactiveText: "#7E7668",
+    headerText: "#171614",
+    headerLine: "#DCD4C4",
+    dot: "#8C8373",
+    coral: "#B83E2C",        // Terracota editorial
+    teal: "#224B57",         // Petróleo apagado
+    colon: "#8C8373",
+    dottedLine: "#D6CDBC",
+    valueText: "#171614",    // Carbón mate profundo
+    uptimeText: "#047857",   // Verde esmeralda editorial
+    asciiText: "#171614",    // Tinta máxima definición
+    promptSubtle: "#7E7668",
+  };
+
   let y = 118;
   const rightX = 380;
   const endX = 925;
@@ -88,8 +112,8 @@ function generateSVG() {
       const lineStartX = rightX + textWidth + 14;
       rowsSvg += `
         <!-- Header: ${escapeXml(item.text)} -->
-        <text x="${rightX}" y="${y}" fill="#f4f4f5" font-size="12" font-weight="600" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">${escapeXml(item.text)}</text>
-        <line x1="${lineStartX}" y1="${y - 4}" x2="${endX}" y2="${y - 4}" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+        <text x="${rightX}" y="${y}" fill="${colors.headerText}" font-size="12" font-weight="700" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">${escapeXml(item.text)}</text>
+        <line x1="${lineStartX}" y1="${y - 4}" x2="${endX}" y2="${y - 4}" stroke="${colors.headerLine}" stroke-width="1.2"/>
       `;
       y += 20;
       continue;
@@ -100,30 +124,30 @@ function generateSVG() {
     let keySvg = "";
 
     // Dot
-    keySvg += `<text x="${rightX}" y="${y}" fill="#71717a" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">.</text>`;
+    keySvg += `<text x="${rightX}" y="${y}" fill="${colors.dot}" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">.</text>`;
     
     // Key text
-    keySvg += `<text x="${rightX + 10}" y="${y}" fill="#d16450" font-weight="500" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">${escapeXml(item.key)}</text>`;
+    keySvg += `<text x="${rightX + 10}" y="${y}" fill="${colors.coral}" font-weight="600" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">${escapeXml(item.key)}</text>`;
     keyLabelWidth = rightX + 10 + (item.key.length * 7.4);
 
     if (item.sub) {
-      keySvg += `<text x="${keyLabelWidth}" y="${y}" fill="#71717a" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">.</text>`;
+      keySvg += `<text x="${keyLabelWidth}" y="${y}" fill="${colors.dot}" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">.</text>`;
       keyLabelWidth += 7;
-      keySvg += `<text x="${keyLabelWidth}" y="${y}" fill="#38bdf8" font-weight="500" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">${escapeXml(item.sub)}</text>`;
+      keySvg += `<text x="${keyLabelWidth}" y="${y}" fill="${colors.teal}" font-weight="600" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">${escapeXml(item.sub)}</text>`;
       keyLabelWidth += item.sub.length * 7.4;
     }
 
-    keySvg += `<text x="${keyLabelWidth}" y="${y}" fill="#71717a" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">:</text>`;
+    keySvg += `<text x="${keyLabelWidth}" y="${y}" fill="${colors.colon}" font-size="12" font-family="ui-monospace, 'JetBrains Mono', Menlo, Consolas, monospace">:</text>`;
     keyLabelWidth += 12;
 
-    const valueColor = item.isEmerald ? "#34d399" : "#e4e4e7";
-    const valueWeight = item.isEmerald ? "font-weight=\"600\"" : "font-weight=\"400\"";
+    const valueColor = item.isEmerald ? colors.uptimeText : colors.valueText;
+    const valueWeight = item.isEmerald ? "font-weight=\"700\"" : "font-weight=\"500\"";
 
     const valWidth = item.value.length * 7.3;
     const dotLineEnd = endX - valWidth - 10;
 
     const dottedLine = dotLineEnd > keyLabelWidth + 10
-      ? `<line x1="${keyLabelWidth + 4}" y1="${y - 4}" x2="${dotLineEnd}" y2="${y - 4}" stroke="rgba(255,255,255,0.15)" stroke-dasharray="2 3" stroke-width="1"/>`
+      ? `<line x1="${keyLabelWidth + 4}" y1="${y - 4}" x2="${dotLineEnd}" y2="${y - 4}" stroke="${colors.dottedLine}" stroke-dasharray="2 3" stroke-width="1.2"/>`
       : "";
 
     rowsSvg += `
@@ -151,16 +175,19 @@ function generateSVG() {
 
   const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" fill="none">
   <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#090a0c"/>
-      <stop offset="100%" stop-color="#0e1114"/>
+    <linearGradient id="bgGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${colors.bgStart}"/>
+      <stop offset="100%" stop-color="${colors.bgEnd}"/>
     </linearGradient>
+    <filter id="cardShadow" x="-2%" y="-2%" width="104%" height="106%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="12" flood-color="rgba(45, 38, 28, 0.08)"/>
+    </filter>
   </defs>
 
   <style>
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.35; transform: scale(0.9); }
+      50% { opacity: 0.45; transform: scale(0.9); }
     }
     @keyframes blink {
       0%, 49% { opacity: 1; }
@@ -178,46 +205,46 @@ function generateSVG() {
     }
   </style>
 
-  <!-- Window Container -->
-  <rect x="1" y="1" width="${width - 2}" height="${height - 2}" rx="18" fill="url(#bgGrad)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+  <!-- Window Container with Editorial Paper Styling -->
+  <rect x="1" y="1" width="${width - 2}" height="${height - 2}" rx="18" fill="url(#bgGradLight)" stroke="${colors.border}" stroke-width="1.5" filter="url(#cardShadow)"/>
 
   <!-- Titlebar -->
-  <path d="M 1 19 C 1 9 9 1 19 1 L ${width - 19} 1 C ${width - 9} 1 ${width - 1} 9 ${width - 1} 19 L ${width - 1} 46 L 1 46 Z" fill="rgba(255,255,255,0.02)"/>
-  <line x1="1" y1="46" x2="${width - 1}" y2="46" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <path d="M 1 19 C 1 9 9 1 19 1 L ${width - 19} 1 C ${width - 9} 1 ${width - 1} 9 ${width - 1} 19 L ${width - 1} 46 L 1 46 Z" fill="${colors.titlebarBg}"/>
+  <line x1="1" y1="46" x2="${width - 1}" y2="46" stroke="${colors.titlebarBorder}" stroke-width="1"/>
 
   <!-- Window Buttons -->
-  <circle cx="28" cy="23" r="6" fill="#ff5f57" stroke="rgba(0,0,0,0.2)" stroke-width="0.5"/>
-  <circle cx="48" cy="23" r="6" fill="#febc2e" stroke="rgba(0,0,0,0.2)" stroke-width="0.5"/>
-  <circle cx="68" cy="23" r="6" fill="#28c840" stroke="rgba(0,0,0,0.2)" stroke-width="0.5"/>
+  <circle cx="28" cy="23" r="6" fill="#ff5f57" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+  <circle cx="48" cy="23" r="6" fill="#febc2e" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+  <circle cx="68" cy="23" r="6" fill="#28c840" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
 
   <!-- Center Tabs -->
   <g>
     <!-- Tab 1: Active -->
-    <rect x="${width / 2 - 115}" y="10" width="125" height="26" rx="6" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-    <text x="${width / 2 - 53}" y="27" text-anchor="middle" fill="#f4f4f5" font-size="11.5" font-weight="600" class="mono">~/evannn — zsh</text>
+    <rect x="${width / 2 - 115}" y="10" width="125" height="26" rx="6" fill="${colors.tabActiveBg}" stroke="${colors.tabActiveBorder}" stroke-width="1"/>
+    <text x="${width / 2 - 53}" y="27" text-anchor="middle" fill="${colors.tabActiveText}" font-size="11.5" font-weight="700" class="mono">~/evannn — zsh</text>
     
     <!-- Tab 2: oak-studio -->
-    <text x="${width / 2 + 52}" y="27" text-anchor="middle" fill="#71717a" font-size="11.5" class="mono">oak-studio</text>
+    <text x="${width / 2 + 52}" y="27" text-anchor="middle" fill="${colors.tabInactiveText}" font-size="11.5" font-weight="500" class="mono">oak-studio</text>
 
     <!-- Tab 3: README.md -->
-    <text x="${width / 2 + 140}" y="27" text-anchor="middle" fill="#71717a" font-size="11.5" class="mono">README.md</text>
+    <text x="${width / 2 + 140}" y="27" text-anchor="middle" fill="${colors.tabInactiveText}" font-size="11.5" font-weight="500" class="mono">README.md</text>
   </g>
 
   <!-- Live Pulse Dot on Right -->
-  <circle cx="${width - 35}" cy="23" r="3.5" fill="#10b981" class="pulse-dot"/>
+  <circle cx="${width - 35}" cy="23" r="3.5" fill="#059669" class="pulse-dot"/>
 
   <!-- Initial Command Line -->
   <g class="mono">
-    <text x="32" y="80" fill="#38bdf8" font-weight="700" font-size="13">&gt;</text>
-    <text x="50" y="80" fill="#d16450" font-weight="600" font-size="13">
+    <text x="32" y="80" fill="${colors.teal}" font-weight="800" font-size="13">&gt;</text>
+    <text x="50" y="80" fill="${colors.coral}" font-weight="700" font-size="13">
       <tspan font-style="italic" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="14.5">Evannn</tspan>@evnwlf
     </text>
-    <text x="160" y="80" fill="#71717a" font-size="13">~</text>
-    <text x="178" y="80" fill="#f4f4f5" font-weight="500" font-size="13">neofetch --user evannn</text>
+    <text x="160" y="80" fill="${colors.colon}" font-size="13">~</text>
+    <text x="178" y="80" fill="${colors.valueText}" font-weight="600" font-size="13">neofetch --user evannn</text>
   </g>
 
   <!-- Left Column: Official Oak/Logo ASCII Art from evnwlf.dev -->
-  <text xml:space="preserve" fill="#a1a1aa" font-size="${fontSize}" font-weight="700" class="mono" letter-spacing="0">
+  <text xml:space="preserve" fill="${colors.asciiText}" font-size="${fontSize}" font-weight="700" class="mono" letter-spacing="0">
 ${asciiSvg}
   </text>
 
@@ -226,19 +253,19 @@ ${asciiSvg}
 
   <!-- Bottom Prompt Line -->
   <g class="mono">
-    <text x="32" y="508" fill="#38bdf8" font-weight="700" font-size="13">&gt;</text>
-    <text x="50" y="508" fill="#d16450" font-weight="600" font-size="13">
+    <text x="32" y="508" fill="${colors.teal}" font-weight="800" font-size="13">&gt;</text>
+    <text x="50" y="508" fill="${colors.coral}" font-weight="700" font-size="13">
       <tspan font-style="italic" font-family="Georgia, 'Times New Roman', serif" font-weight="bold" font-size="14.5">Evannn</tspan>@evnwlf
     </text>
-    <text x="160" y="508" fill="#71717a" font-size="13">~</text>
-    <text x="178" y="508" fill="#52525b" font-size="12.5">Escribe &apos;help&apos; para ver comandos...</text>
+    <text x="160" y="508" fill="${colors.colon}" font-size="13">~</text>
+    <text x="178" y="508" fill="${colors.promptSubtle}" font-size="12.5" font-weight="500">Escribe &apos;help&apos; para ver comandos...</text>
     <!-- Cursor -->
-    <rect x="424" y="495" width="7.5" height="15" fill="#d16450" class="cursor-caret"/>
+    <rect x="424" y="495" width="7.5" height="15" fill="${colors.coral}" class="cursor-caret"/>
   </g>
 </svg>`;
 
   fs.writeFileSync(path.join(__dirname, 'terminal.svg'), svgContent, 'utf-8');
-  console.log("terminal.svg generated successfully with official asciiArt from evnwlf.dev!");
+  console.log("terminal.svg generated successfully with light editorial theme!");
 }
 
 generateSVG();
