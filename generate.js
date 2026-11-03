@@ -13,7 +13,8 @@ function escapeXml(unsafe) {
 
 function calculateUptime() {
   const start = new Date(2006, 10, 12, 11, 0, 0);
-  const now = new Date();
+  // Zona horaria de México central para consistencia exacta con la web
+  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
 
   let years = now.getFullYear() - start.getFullYear();
   let months = now.getMonth() - start.getMonth();
@@ -72,7 +73,7 @@ const rows = [
   { key: "OS", value: "Windows 11, WSL, iOS" },
   { key: "Uptime", value: uptime, isEmerald: true },
   { key: "Role", value: "Estudiante & Desarrollador" },
-  { key: "Host", value: "Lion Store" },
+  { key: "Host", value: "LS" },
   { key: "Core", value: "Soluciones a medida & Software funcional" },
   { key: "IDE", value: "Visual Studio, Antigravity" },
   { type: "gap" },
@@ -83,7 +84,7 @@ const rows = [
   { key: "Hobbies", sub: "Build", value: "Apps (iOS, Android, Windows, Web)" },
   { type: "gap" },
   { type: "header", text: "Contact" },
-  { key: "Email", value: "evnwlf@gmail.com" },
+  { key: "Email", value: "evnnwlf@gmail.com" },
   { key: "WhatsApp", value: "+52 56 3556 5626" },
   { key: "GitHub", value: "evnwlf" },
   { key: "Instagram", value: "@evn.wlf" }

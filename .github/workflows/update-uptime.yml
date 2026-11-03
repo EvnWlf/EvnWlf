@@ -2,7 +2,7 @@ name: Update Profile Uptime
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Actualización diaria automática
+    - cron: '0 */6 * * *' # Actualización automática cada 6 horas
   workflow_dispatch:
 
 permissions:
@@ -22,6 +22,8 @@ jobs:
 
       - name: Regenerar terminal.svg
         run: node generate.js
+        env:
+          TZ: "America/Mexico_City"
 
       - name: Commit y push
         run: |
