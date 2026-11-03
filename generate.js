@@ -23,18 +23,9 @@ function calculateUptime() {
   let minutes = now.getMinutes() - start.getMinutes();
   let seconds = now.getSeconds() - start.getSeconds();
 
-  if (seconds < 0) {
-    seconds += 60;
-    minutes--;
-  }
-  if (minutes < 0) {
-    minutes += 60;
-    hours--;
-  }
-  if (hours < 0) {
-    hours += 24;
-    days--;
-  }
+  if (seconds < 0) { seconds += 60; minutes--; }
+  if (minutes < 0) { minutes += 60; hours--; }
+  if (hours < 0) { hours += 24; days--; }
   if (days < 0) {
     const prevMonthDays = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
     days += prevMonthDays;
@@ -51,22 +42,8 @@ function calculateUptime() {
 
 const uptime = calculateUptime();
 
-const asciiLines = [
-  "        /\\                 /\\",
-  "       /  \\               /  \\",
-  "      /    \\_____________/    \\",
-  "     /   /\\                 /\\  \\",
-  "    |   /  \\               /  \\  |",
-  "    |  |    |  .--.   .--. |   | |",
-  "     \\  \\   | ( @@ ) ( @@ )|  / /",
-  "      \\  \\  |  '--'   '--' | / /",
-  "       \\  '.|      .-.     |.' /",
-  "        \\   |     (   )    |  /",
-  "         \\   \\     '-'    /  /",
-  "          '.  '.  \\___/ .'  .'",
-  "            '.  '-.___.-' .'",
-  "              '-._______.-'"
-];
+// Arte ASCII oficial de evnwlf.dev
+const asciiArt = "                                        ++++++++++++++++++++++\n                                  ++++++++++++++++++++++++++++++++++\n                              ++++++++++                       +++++++++\n                          ++++++++                                  ++++++++\n                       +++++++                                          +++++++\n                     +++++                       ++++++++                   +++++\n                  ++++++                 +++++++++++++++++++                   +++++\n                 ++++               +++++++++++++++                              +++++\n              +++++              ++++++++++++++                                    +++++\n             ++++             ++++++++++++++                                         +++++\n           ++++             +++++++++++++                                              ++++\n          ++++            +++++++++++++                   +     +                       ++++\n         +++            +++++++++++++                    +++   +++                        ++++\n       ++++            +++++++++++++                     ++++ +++++                        ++++\n      ++++            +++++++++++++                     ++++++ ++++                         ++++\n     ++++            +++++++++++++                      +++++++  ++                          ++++\n     +++            +++++++++++++                      +++++++++++++++                        +++\n    +++            +++++++++++++                       ++++++++++++++++++                      +++\n   +++            +++++++++++++                       +++++++++++++++++++++                     +++\n   +++           ++++++++++++++                     ++++++++++++++++++++++++                    +++\n  +++            ++++++++++++++                   ++++++++++++++++++++++++++++++++               +++\n  +++           ++++++++++++++                  ++++++++++++++++++++++++++++++++++++++            ++\n +++            ++++++++++++++                ++++++++++++++++++++++++++++++++++++++++            +++\n +++            ++++++++++++++               ++++++++++++++++++++++++++++++++++++++++             +++\n ++            +++++++++++++++                 ++++++++++++++++++++++++++++++++++++                ++\n ++            +++++++++++++++               ++++++++++++++++++++++++++++++++++++                  +++\n+++            ++++++++++++++++             +++++++++++++++++++++ ++++                             +++\n+++            ++++++++++++++++          +++++++++++++++++++++ ++++++                              +++\n+++             ++++++++++++++++     +++++++++++++++++++++++ +++++++                               +++\n+++             +++++++++++++++++  ++++++++++++++++++++++++ ++++++++                               +++\n ++             +++++++++++++++++   ++++++++++++++++++++++ +++++++++                               ++\n +++             +++++++++++++++++   +++++++++++++++++++++ +++++++++                              +++\n +++             +++++++++++++++++++  ++++++++++++++++++++ ++++++++++                             +++\n  ++              +++++++++++++++++++  +++++++++++++++++++  +++++++++               +             +++\n  +++              +++++++++++++++++++   ++++++++++++++++++ +++++++++             +++            +++\n  +++               +++++++++++++++++++++  ++++++++++++++++  +++++++            ++++             +++\n   +++               ++++++++++++++++++++++  +++++++++++++++ ++++++           +++++             +++\n    +++               +++++++++++++++++++++++   ++++++++++++ +++++         ++++++              +++\n    ++++               ++++++++++++++++++++++++++    +++++++  ++++     +++++++++              ++++\n     ++++                +++++++++++++++++++++++++++++++         ++++++++++++++               +++\n      ++++                 ++++++++++++++++++++++++++++++++++++++++++++++++++               ++++\n       ++++                  ++++++++++++++++++++++++++++++++++++++++++++++                ++++\n        ++++                   +++++++++++++++++++++++++++++++++++++++++                  ++++\n          +++                     ++++++++++++++++++++++++++++++++++++                   +++\n           ++++                      +++++++++++++++++++++++++++++                      +++\n             ++                           +++++++++++++++++++\n                                                                          +++     +++\n                                                                          +++   +++++\n                                                                          +++   +++\n                  ++++++++   +++      +++ ++++++++++   +++    +++     ++  +++ +++++++\n                 +++++ +++++ ++++    +++  +++++++++++  +++   +++++   +++  +++ +++++++\n                +++      +++  +++   +++   +++     +++   +++  +++++   ++   +++   +++\n                ++++++++++++   +++  +++   +++     +++   +++ +++ +++ +++   +++   +++\n                +++      +++   +++++++    +++     +++    +++++   +++++    +++   +++\n                 +++++++++++    +++++     +++     +++    +++++   +++++    +++   +++\n                  ++++++++       ++++     +++      ++     +++     +++     +++   +++\n";
 
 const rows = [
   { type: "header", text: "evannn@evnwlf" },
@@ -91,12 +68,12 @@ const rows = [
 ];
 
 function generateSVG() {
-  const width = 940;
+  const width = 960;
   const height = 550;
 
   let y = 118;
-  const rightX = 330;
-  const endX = 905;
+  const rightX = 380;
+  const endX = 925;
 
   let rowsSvg = "";
 
@@ -142,7 +119,6 @@ function generateSVG() {
     const valueColor = item.isEmerald ? "#34d399" : "#e4e4e7";
     const valueWeight = item.isEmerald ? "font-weight=\"600\"" : "font-weight=\"400\"";
 
-    // Value text measurement (approx 7.3px per char)
     const valWidth = item.value.length * 7.3;
     const dotLineEnd = endX - valWidth - 10;
 
@@ -161,13 +137,16 @@ function generateSVG() {
     y += 18.5;
   }
 
-  // ASCII lines
+  // ASCII lines from official evnwlf.dev
+  const rawAsciiLines = asciiArt.trim().split('\n');
   let asciiSvg = "";
-  let asciiY = 120;
-  for (const line of asciiLines) {
+  let asciiY = 112;
+  const fontSize = 5.2;
+  const lineSpacing = 6.2;
+  for (const line of rawAsciiLines) {
     const escaped = escapeXml(line);
-    asciiSvg += `    <tspan x="36" y="${asciiY}">${escaped}</tspan>\n`;
-    asciiY += 17.5;
+    asciiSvg += `    <tspan x="28" y="${asciiY.toFixed(1)}">${escaped}</tspan>\n`;
+    asciiY += lineSpacing;
   }
 
   const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" fill="none">
@@ -189,7 +168,7 @@ function generateSVG() {
     }
     .pulse-dot {
       animation: pulse 2.2s ease-in-out infinite;
-      transform-origin: 905px 23px;
+      transform-origin: ${width - 35}px 23px;
     }
     .cursor-caret {
       animation: blink 1.1s infinite;
@@ -214,18 +193,18 @@ function generateSVG() {
   <!-- Center Tabs -->
   <g>
     <!-- Tab 1: Active -->
-    <rect x="365" y="10" width="125" height="26" rx="6" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
-    <text x="427" y="27" text-anchor="middle" fill="#f4f4f5" font-size="11.5" font-weight="600" class="mono">~/evannn — zsh</text>
+    <rect x="${width / 2 - 115}" y="10" width="125" height="26" rx="6" fill="rgba(255,255,255,0.10)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <text x="${width / 2 - 53}" y="27" text-anchor="middle" fill="#f4f4f5" font-size="11.5" font-weight="600" class="mono">~/evannn — zsh</text>
     
     <!-- Tab 2: oak-studio -->
-    <text x="532" y="27" text-anchor="middle" fill="#71717a" font-size="11.5" class="mono">oak-studio</text>
+    <text x="${width / 2 + 52}" y="27" text-anchor="middle" fill="#71717a" font-size="11.5" class="mono">oak-studio</text>
 
     <!-- Tab 3: README.md -->
-    <text x="620" y="27" text-anchor="middle" fill="#71717a" font-size="11.5" class="mono">README.md</text>
+    <text x="${width / 2 + 140}" y="27" text-anchor="middle" fill="#71717a" font-size="11.5" class="mono">README.md</text>
   </g>
 
   <!-- Live Pulse Dot on Right -->
-  <circle cx="905" cy="23" r="3.5" fill="#10b981" class="pulse-dot"/>
+  <circle cx="${width - 35}" cy="23" r="3.5" fill="#10b981" class="pulse-dot"/>
 
   <!-- Initial Command Line -->
   <g class="mono">
@@ -237,14 +216,12 @@ function generateSVG() {
     <text x="178" y="80" fill="#f4f4f5" font-weight="500" font-size="13">neofetch --user evannn</text>
   </g>
 
-  <!-- Left Column: ASCII Wolf Art -->
-  <text xml:space="preserve" fill="#a1a1aa" font-size="11" font-weight="500" class="mono" letter-spacing="0.2">
+  <!-- Left Column: Official Oak/Logo ASCII Art from evnwlf.dev -->
+  <text xml:space="preserve" fill="#a1a1aa" font-size="${fontSize}" font-weight="700" class="mono" letter-spacing="0">
 ${asciiSvg}
   </text>
-  
-  <text x="146" y="390" text-anchor="middle" fill="#71717a" font-size="11.5" font-weight="500" letter-spacing="3.5" class="mono">e v n w l f . d e v</text>
 
-  <!-- Right Column: Specs &amp; Data -->
+  <!-- Right Column: Specs & Data -->
   ${rowsSvg}
 
   <!-- Bottom Prompt Line -->
@@ -261,7 +238,7 @@ ${asciiSvg}
 </svg>`;
 
   fs.writeFileSync(path.join(__dirname, 'terminal.svg'), svgContent, 'utf-8');
-  console.log("terminal.svg generated successfully with escaped XML!");
+  console.log("terminal.svg generated successfully with official asciiArt from evnwlf.dev!");
 }
 
 generateSVG();

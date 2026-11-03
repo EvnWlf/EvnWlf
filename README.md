@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./terminal.svg" alt="Evan (evnwlf) Neofetch Terminal" width="100%" />
+  <img src="./terminal.svg?v=3" alt="Evan (evnwlf) Neofetch Terminal" width="100%" />
 </div>
 
 <p align="center">
